@@ -370,7 +370,7 @@
         <h1>Contact Us</h1>
         <!--Email Validation Start-->
         <div class="container">
-            <form id="contactForm">
+            <form id="contactForm" method="post" action="https://script.google.com/macros/s/AKfycbzNwnJAPqPyymY3UMqPVHkIDX3XUAZzMYdZx4m8TxJRSujIXsJZ2VSau2L_j0Kfr3mykw/exec>
                 <label for="email">Email:</label>
                 <input type="email" id="email" name="email" placeholder="Enter Your Email . . . ." required>
                 <span id="emailError" class="error"></span>
@@ -384,7 +384,7 @@
                     required></textarea>
                 <span id="messageError" class="error"></span>
 
-                <button type="button" onclick="validateForm()">Submit</button>
+                <input type="submit" onclick="validateForm()" >
             </form>
 
             <div class="social-icons">
