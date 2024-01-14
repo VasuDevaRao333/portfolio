@@ -2,6 +2,7 @@
 <html>
 
 <head>
+    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <title>My portfolio</title>
@@ -370,7 +371,7 @@
         <h1>Contact Us</h1>
         <!--Email Validation Start-->
         <div class="container">
-            <form id="contactForm" method="post" action="https://script.google.com/macros/s/AKfycbzNwnJAPqPyymY3UMqPVHkIDX3XUAZzMYdZx4m8TxJRSujIXsJZ2VSau2L_j0Kfr3mykw/exec>
+            <form id="contactForm" method="post" action="https://script.google.com/macros/s/AKfycbzNwnJAPqPyymY3UMqPVHkIDX3XUAZzMYdZx4m8TxJRSujIXsJZ2VSau2L_j0Kfr3mykw/exec">
                 <label for="email">Email:</label>
                 <input type="email" id="email" name="email" placeholder="Enter Your Email . . . ." required>
                 <span id="emailError" class="error"></span>
@@ -384,7 +385,7 @@
                     required></textarea>
                 <span id="messageError" class="error"></span>
 
-                <input type="submit" onclick="validateForm()" >
+                <input type="submit" onclick="validateForm()">
             </form>
 
             <div class="social-icons">
@@ -457,7 +458,7 @@
 
         function validateForm() {
             var email = document.getElementById('email').value;
-            var username = document.getElementById('username').value;
+            var username = document.getElementById('name').value;
             var message = document.getElementById('message').value;
 
             var emailError = document.getElementById('emailError');
@@ -487,6 +488,7 @@
                 document.getElementById('contactForm').reset(); // Reset the form fields
             }
         }
+		
 
     </script>
 
