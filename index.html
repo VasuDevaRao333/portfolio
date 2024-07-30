@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File Download Button</title>
+    <style>
+        body,
+        html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            text-align: center;
+        }
+
+        .input-field {
+            margin-bottom: 10px;
+        }
+
+        #downloadBtn {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        #downloadBtn:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="input-field">
+            <input type="text" id="fileUrl" placeholder="Enter file URL" style="width: 300px; padding: 5px;">
+        </div>
+        <div class="input-field">
+            <input type="text" id="fileName" placeholder="Enter file name" style="width: 300px; padding: 5px;">
+        </div>
+        <button id="downloadBtn">Download File</button>
+    </div>
+    <script>
+        document.getElementById('downloadBtn').addEventListener('click', function () {
+            // Get the file URL and file name from input fields
+            var fileUrl = document.getElementById('fileUrl').value;
+            var fileName = document.getElementById('fileName').value;
+
+            // Validate the input fields
+            if (fileUrl.trim() === '' || fileName.trim() === '') {
+                alert('Please enter both the file URL and file name.');
+                return;
+            }
+
+            // Create a temporary link element
+            var a = document.createElement('a');
+            a.href = fileUrl;
+            a.download = fileName;
+
+            // Append the link to the body
+            document.body.appendChild(a);
+
+            // Trigger the download
+            a.click();
+
+            // Remove the link from the document
+            document.body.removeChild(a);
+        });
+    </script>
+</body>
+
+</html>
