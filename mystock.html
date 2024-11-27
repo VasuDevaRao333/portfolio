@@ -110,6 +110,7 @@
     </div>
 
     <script>
+        // GitHub API and Authentication
         const GITHUB_API_URL = 'https://github.com/VasuDevaRao333/portfolio/stock_data.json';
         const GITHUB_TOKEN = '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';  // Replace with your GitHub token
 
@@ -171,19 +172,23 @@
             const stockData = JSON.parse(localStorage.getItem('stockData')) || [];
             const dataStr = JSON.stringify(stockData, null, 2);
 
-            const encodedData = btoa(dataStr); // Encoding data to Base64 format
+            // Encode the data to Base64 (GitHub API requires Base64 encoding for file content)
+            const encodedData = btoa(dataStr);
 
+            // Prepare headers for the API request
             const headers = new Headers();
             headers.append('Authorization', `token ${GITHUB_TOKEN}`);
             headers.append('Content-Type', 'application/json');
 
+            // Prepare the request body
             const body = JSON.stringify({
                 message: 'Update stock data',
                 content: encodedData,
-                branch: 'main',  // Make sure to specify your branch if it's not the default "main"
+                branch: 'main',  // Make sure to specify the correct branch (usually 'main' or 'master')
             });
 
             try {
+                // Send the PUT request to GitHub API
                 const response = await fetch(GITHUB_API_URL, {
                     method: 'PUT',
                     headers: headers,
@@ -193,7 +198,8 @@
                 if (response.ok) {
                     alert('Data saved to GitHub successfully!');
                 } else {
-                    alert('Failed to save data to GitHub.');
+                    const errorData = await response.json();
+                    alert(`Failed to save data to GitHub: ${errorData.message}`);
                 }
             } catch (error) {
                 alert('An error occurred while saving data to GitHub.');
