@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stock Purchase List</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+        }
+
+        header {
+            background-color: #4CAF50;
+            color: white;
+            padding: 15px;
+            text-align: center;
+        }
+
+        .container {
+            width: 80%;
+            margin: 20px auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        table,
+        th,
+        td {
+            border: 1px solid #ddd;
+        }
+
+        th,
+        td {
+            padding: 10px;
+            text-align: center;
+        }
+
+        .form-container {
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .form-container input {
+            padding: 8px;
+            margin-right: 10px;
+            width: 20%;
+        }
+
+        .form-container button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        .form-container button:hover {
+            background-color: #45a049;
+        }
+
+        .amount {
+            background-color: #f0f8ff;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h1>Stock Purchase List</h1>
+    </header>
+
+    <div class="container">
+        <div class="form-container">
+            <input type="text" id="company" placeholder="Company Name">
+            <input type="number" id="buyingRate" placeholder="Buying Rate">
+            <input type="number" id="quantity" placeholder="Quantity">
+            <input type="number" id="amount" placeholder="Amount" disabled>
+            <input type="date" id="date">
+            <button onclick="addEntry()">Add Entry</button>
+        </div>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Company</th>
+                    <th>Buying Rate</th>
+                    <th>Quantity</th>
+                    <th class="amount">Amount</th>
+                    <th>Date</th>
+                </tr>
+            </thead>
+            <tbody id="stockList">
+            </tbody>
+        </table>
+
+        <div>
+            <button onclick="downloadJSON()">Download Data as JSON</button>
+            <button onclick="saveToGitHub()">Save Data to GitHub</button>
+        </div>
+    </div>
+
+    <script>
+        const GITHUB_API_URL = 'https://github.com/VasuDevaRao333/portfolio/stock_data.json';
+        const GITHUB_TOKEN = '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';  // Replace with your GitHub token
+
+        function addEntry() {
+            const company = document.getElementById("company").value;
+            const buyingRate = parseFloat(document.getElementById("buyingRate").value);
+            const quantity = parseFloat(document.getElementById("quantity").value);
+            const date = document.getElementById("date").value;
+
+            const amount = buyingRate * quantity;
+
+            if (company && !isNaN(buyingRate) && !isNaN(quantity) && date) {
+                const newEntry = { company, buyingRate, quantity, amount: amount.toFixed(2), date };
+                let stockData = JSON.parse(localStorage.getItem('stockData')) || [];
+                stockData.push(newEntry);
+                localStorage.setItem('stockData', JSON.stringify(stockData));
+                displayStockData();
+
+                document.getElementById("company").value = '';
+                document.getElementById("buyingRate").value = '';
+                document.getElementById("quantity").value = '';
+                document.getElementById("amount").value = '';
+                document.getElementById("date").value = '';
+            } else {
+                alert("Please fill out all fields correctly.");
+            }
+        }
+
+        function displayStockData() {
+            const stockData = JSON.parse(localStorage.getItem('stockData')) || [];
+            const stockList = document.getElementById("stockList");
+            stockList.innerHTML = '';
+
+            stockData.forEach(entry => {
+                const newRow = document.createElement("tr");
+                newRow.innerHTML = `
+                <td>${entry.company}</td>
+                <td>${entry.buyingRate}</td>
+                <td>${entry.quantity}</td>
+                <td class="amount">${entry.amount}</td>
+                <td>${entry.date}</td>
+            `;
+                stockList.appendChild(newRow);
+            });
+        }
+
+        function downloadJSON() {
+            const stockData = JSON.parse(localStorage.getItem('stockData')) || [];
+            const dataStr = JSON.stringify(stockData, null, 2);
+            const blob = new Blob([dataStr], { type: 'application/json' });
+
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = 'stock_data.json';
+            link.click();
+        }
+
+        async function saveToGitHub() {
+            const stockData = JSON.parse(localStorage.getItem('stockData')) || [];
+            const dataStr = JSON.stringify(stockData, null, 2);
+
+            const encodedData = btoa(dataStr); // Encoding data to Base64 format
+
+            const headers = new Headers();
+            headers.append('Authorization', `token ${GITHUB_TOKEN}`);
+            headers.append('Content-Type', 'application/json');
+
+            const body = JSON.stringify({
+                message: 'Update stock data',
+                content: encodedData,
+                branch: 'main',  // Make sure to specify your branch if it's not the default "main"
+            });
+
+            try {
+                const response = await fetch(GITHUB_API_URL, {
+                    method: 'PUT',
+                    headers: headers,
+                    body: body
+                });
+
+                if (response.ok) {
+                    alert('Data saved to GitHub successfully!');
+                } else {
+                    alert('Failed to save data to GitHub.');
+                }
+            } catch (error) {
+                alert('An error occurred while saving data to GitHub.');
+                console.error(error);
+            }
+        }
+
+        window.onload = displayStockData;
+    </script>
+
+</body>
+
+</html>
