@@ -6,7 +6,153 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Stock Purchase List</title>
     <style>
-        /* Your existing styles here */
+        /* Mobile-first approach */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+        }
+
+        header {
+            background-color: #4CAF50;
+            color: white;
+            padding: 15px;
+            text-align: center;
+            font-size: 1.5em;
+        }
+
+        .container {
+            width: 90%;
+            margin: 20px auto;
+            padding: 10px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-container {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .form-container input,
+        .form-container button {
+            padding: 12px;
+            font-size: 1em;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            width: 100%;
+        }
+
+        .form-container input:focus {
+            border-color: #4CAF50;
+            outline: none;
+        }
+
+        .form-container button {
+            background-color: #4CAF50;
+            color: white;
+            cursor: pointer;
+            border: none;
+            transition: background-color 0.3s;
+            width: 100%;
+        }
+
+        .form-container button:hover {
+            background-color: #45a049;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            overflow-x: auto;
+        }
+
+        table,
+        th,
+        td {
+            border: 1px solid #ddd;
+        }
+
+        th,
+        td {
+            padding: 12px;
+            text-align: center;
+            font-size: 1em;
+        }
+
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        .amount {
+            background-color: #f0f8ff;
+        }
+
+        td button {
+            background-color: #f44336;
+            color: white;
+            padding: 8px 16px;
+            font-size: 0.9em;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        td button:hover {
+            background-color: #e53935;
+        }
+
+        /* Make the table scrollable horizontally on small screens */
+        .table-container {
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        /* Responsive Design for larger screens */
+        @media (min-width: 768px) {
+            .form-container {
+                flex-direction: row;
+                justify-content: space-between;
+                gap: 12px;
+            }
+
+            .form-container input,
+            .form-container button {
+                width: 22%;
+            }
+
+            .table-container {
+                overflow-x: initial;
+            }
+
+            td button {
+                width: auto;
+                font-size: 0.9em;
+                padding: 8px 12px;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            header {
+                font-size: 1.8em;
+            }
+
+            .form-container input,
+            .form-container button {
+                font-size: 1.1em;
+            }
+
+            table {
+                font-size: 1.1em;
+            }
+        }
     </style>
 </head>
 
@@ -26,7 +172,6 @@
             <button onclick="addEntry()">Add Entry</button>
         </div>
 
-        <!-- Table to show the stock data -->
         <div class="table-container">
             <table>
                 <thead>
@@ -46,7 +191,7 @@
     </div>
 
     <script>
-        const apiUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQho2ryX_e7TXzpxXkLe14UjbQwd8F_l0-LGRtEDIfK7b3up_sGJvhHgFE1f6W8sUilNg15mX-HhvUl/pubhtml'; // Replace with your Apps Script Web App URL
+        let stockData = [];
 
         // Function to add stock entry
         function addEntry() {
@@ -57,35 +202,30 @@
             const amount = buyingRate * quantity;
 
             if (company && !isNaN(buyingRate) && !isNaN(quantity) && date) {
-                // Send data to Google Sheets via Apps Script (POST request)
-                fetch(apiUrl, {
+                const newEntry = { company, buyingRate, quantity, amount: amount.toFixed(2), date };
+
+                // Send data to Google Apps Script (Google Sheets)
+                const formData = new FormData();
+                formData.append("Company", company);
+                formData.append("BuyingRate", buyingRate);
+                formData.append("Quantity", quantity);
+                formData.append("Amount", amount.toFixed(2));
+                formData.append("Date", date);
+
+                fetch('https://script.google.com/macros/s/AKfycbyBVsMMO8d-oScMHnGOMVyHXw_IL06zQ_nNVX0kop-VxfIcXEyPBh5Vzpegj8PLKHlXnA/exec', {
                     method: 'POST',
-                    body: JSON.stringify({
-                        company: company,
-                        buyingRate: buyingRate,
-                        quantity: quantity,
-                        amount: amount.toFixed(2),
-                        date: date
-                    }),
-                    headers: {
-                        'Content-Type': 'application/json'
-                    }
+                    body: formData
                 })
-                    .then(response => response.json())
+                    .then(response => response.text())
                     .then(data => {
-                        if (data.success) {
-                            alert('Entry added successfully');
-                            displayStockData(); // Refresh data after adding
-                        } else {
-                            alert('Error adding entry');
-                        }
+                        stockData.push(newEntry);
+                        displayStockData();
                     })
                     .catch(error => {
-                        alert('Error adding entry');
-                        console.error(error);
+                        alert('There was an error: ' + error);
                     });
 
-                // Clear form fields
+                // Clear input fields
                 document.getElementById("company").value = '';
                 document.getElementById("buyingRate").value = '';
                 document.getElementById("quantity").value = '';
@@ -96,33 +236,33 @@
             }
         }
 
-        // Function to display stock data from Google Sheets
+        // Function to display stock data
         function displayStockData() {
-            fetch(apiUrl + '?action=getData')
-                .then(response => response.json())
-                .then(data => {
-                    const stockList = document.getElementById("stockList");
-                    stockList.innerHTML = '';
+            const stockList = document.getElementById("stockList");
+            stockList.innerHTML = '';
 
-                    data.forEach((entry) => {
-                        const newRow = document.createElement("tr");
-                        newRow.innerHTML = `
-                            <td>${entry[0]}</td>
-                            <td>${entry[1]}</td>
-                            <td>${entry[2]}</td>
-                            <td class="amount">${entry[3]}</td>
-                            <td>${entry[4]}</td>
-                            <td><button onclick="removeStock(${entry[0]})">Remove</button></td>
-                        `;
-                        stockList.appendChild(newRow);
-                    });
-                })
-                .catch(error => {
-                    console.error('Error loading stock data', error);
-                });
+            stockData.forEach((entry, index) => {
+                const newRow = document.createElement("tr");
+                newRow.innerHTML = `
+                    <td>${entry.company}</td>
+                    <td>${entry.buyingRate}</td>
+                    <td>${entry.quantity}</td>
+                    <td class="amount">${entry.amount}</td>
+                    <td>${entry.date}</td>
+                    <td><button onclick="removeStock(${index})">Remove</button></td>
+                `;
+                stockList.appendChild(newRow);
+            });
         }
 
-        // Call displayStockData when the page loads
+        // Function to remove stock entry
+        function removeStock(index) {
+            // Remove the stock entry at the specified index
+            stockData.splice(index, 1);
+            displayStockData();
+        }
+
+        // Load stock data when the page loads
         window.onload = displayStockData;
     </script>
 
