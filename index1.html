@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-	<link rel="icon" type="image/jpg" href="my-photo2.jpg">
+    <meta name="google-site-verification" content="mH83LTDO1vPiJv1LFsPOtUQnt9k7-oE8tLF0-xFQTtA" />
     <title>My portfolio</title>
     <style>
         body {
@@ -85,20 +85,21 @@
             font-size: 180%;
             text-align: center;
             /* Add the following styles for glowing effect */
-             position: relative;
-             animation: glow 2s infinite alternate;
+            position: relative;
+            animation: glow 2s infinite alternate;
         }
 
         @keyframes glow {
-    0% {
-        text-shadow: 0 0 10px rgba(255, 255, 255, 0.7);
-    }
-    100% {
-        text-shadow: 0 0 20px rgba(255, 255, 255, 1),
-                     0 0 30px rgba(255, 255, 255, 0.8),
-                     0 0 40px rgba(255, 255, 255, 0.6);
-    }
-}
+            0% {
+                text-shadow: 0 0 10px rgba(255, 255, 255, 0.7);
+            }
+
+            100% {
+                text-shadow: 0 0 20px rgba(255, 255, 255, 1),
+                    0 0 30px rgba(255, 255, 255, 0.8),
+                    0 0 40px rgba(255, 255, 255, 0.6);
+            }
+        }
 
         h3 {
             color: white;
@@ -111,12 +112,15 @@
             text-align: center;
         }
 
-       	.aboutbody p {
-    color: white;
-    font-size: 16px; /* Change font size as needed */
-    line-height: 1.5; /* Adjust line height for better readability */
-    text-align: justify; /* Justify the text for a neat appearance */
-}
+        .aboutbody p {
+            color: white;
+            font-size: 16px;
+            /* Change font size as needed */
+            line-height: 1.5;
+            /* Adjust line height for better readability */
+            text-align: justify;
+            /* Justify the text for a neat appearance */
+        }
 
         .aboutbody {
             max-width: 80%;
@@ -213,6 +217,10 @@
             margin: auto;
             width: auto;
             margin-top: 20px;
+            max-height: 400px;
+            /* Set the maximum height for the scroll view */
+            overflow-y: auto;
+            /* Enable vertical scrolling if content overflows */
         }
 
         /* Email Validation Start*/
@@ -261,25 +269,27 @@
 
         .social-icons {
             margin-top: 40px;
-    font-size: 18px; /* Adjust the font size as needed */
-    display: flex;
-    justify-content: center;
+            font-size: 18px;
+            /* Adjust the font size as needed */
+            display: flex;
+            justify-content: center;
         }
 
         .social-icons a {
             display: inline-block;
-    margin: 0 10px;
-    color: white;
-    padding: 10px;
-    text-decoration: none;
-    transition: color 0.3s ease-in-out;
+            margin: 0 10px;
+            color: white;
+            padding: 10px;
+            text-decoration: none;
+            transition: color 0.3s ease-in-out;
         }
 
         .social-icons a:hover {
-    color: #4CAF50; /* Change the hover color as desired */
-}
+            color: #4CAF50;
+            /* Change the hover color as desired */
+        }
 
-          /* ... Your existing styles ... */
+        /* ... Your existing styles ... */
 
         .stars {
             position: fixed;
@@ -304,37 +314,39 @@
             0% {
                 opacity: 0.5;
             }
+
             100% {
                 opacity: 1;
             }
         }
 
-        	.shooting-star {
-    position: absolute;
-    background: white;
-    width: 2px;
-    height: 2px;
-    border-radius: 50%;
-    animation: shootingStarAnimation 5s linear infinite;
-}
+        .shooting-star {
+            position: absolute;
+            background: white;
+            width: 2px;
+            height: 2px;
+            border-radius: 50%;
+            animation: shootingStarAnimation 5s linear infinite;
+        }
 
-@keyframes shootingStarAnimation {
-    0% {
-        transform: translate(0, 0) scale(1);
-        opacity: 1;
-    }
-    100% {
-        transform: translate(100vw, 100vh) scale(0);
-        opacity: 0;
-    }
-}
+        @keyframes shootingStarAnimation {
+            0% {
+                transform: translate(0, 0) scale(1);
+                opacity: 1;
+            }
+
+            100% {
+                transform: translate(100vw, 100vh) scale(0);
+                opacity: 0;
+            }
+        }
     </style>
 </head>
 
 <body>
 
     <div class="topnav" id="myTopnav">
-        <a href="#">Dev</a>
+        <a href="hack.html">Dev</a>
         <a href="#home">Home</a>
         <a href="#about">About</a>
         <a href="#skills">My Skills</a>
@@ -365,16 +377,20 @@
     <div id="additionalDiv">
         Certificates
         <div class="image-container" id="imageContainer">
-            <img src="One.jpg" alt="Image 1"
+            <img src="One.jpg" alt="Ethical_Hacking"
                 onclick="openModal('One.jpg', 'Introduction to Ethical Hacking Beginners')">
-            <img src="VasuDeva_Rao.jpg" alt="Image 3"
+            <img src="VasuDeva_Rao.jpg" alt="Advanced_CyberSecurity"
                 onclick="openModal('VasuDeva_Rao.jpg', 'Advanced Cyber Security Threats and Governance')">
-                 <img src="Two.jpg" alt="Image 2" onclick="openModal('Two.jpg', 'Introduction to Cyber Security')">
-                <img src="Nodejs.jpg" alt="Image 4"
-                onclick="openModal('Nodejs.jpg', 'Getting Started with NodeJs')">
-                <img src="hacking.jpg" alt="Image 5"
-                onclick="openModal('hacking.jpg', 'Ethical Hacker Course')">
-                <img src="html.jpg" alt="Image 6" onclick="openModal('html.jpg', 'Front End Development-HTML')">
+            <img src="Two.jpg" alt="CyberSecurity" onclick="openModal('Two.jpg', 'Introduction to Cyber Security')">
+            <img src="Nodejs.jpg" alt="Nodejs" onclick="openModal('Nodejs.jpg', 'Getting Started with NodeJs')">
+            <img src="hacking.jpg" alt="Ethical_Hacker" onclick="openModal('hacking.jpg', 'Ethical Hacker Course')">
+            <img src="html.jpg" alt="HTML" onclick="openModal('html.jpg', 'Front End Development-HTML')">
+            <img src="Endpoint_Security.jpg" alt="Endpoint_Security"
+                onclick="openModal('Endpoint_Security.jpg', 'Endpoint_Security')">
+            <img src="Front_End.jpg" alt="Front_End_Development"
+                onclick="openModal('Front_End.jpg', 'Front-End development')">
+            <img src="JavaScript.jpg" alt="JavaScript"
+                onclick="openModal('JavaScript.jpg', 'JavaScript for Beginners')">
         </div>
     </div>
 
@@ -382,7 +398,13 @@
     <div class="aboutbody" id="about">
         <h2>ABOUT</h2>
         <h2 style="font-size: 30px"><ins>My Name</ins></h2>
-        <p class="text text-white">Hello, I'm Vasudeva Rao, a 22-year-old with a passion for exploration. I completed my 10th class in 2016, and since then, my journey has been marked by a love for traveling and a curiosity for languages. Fluent in four languages, I've also delved into the world of web development, honing my skills in this dynamic field. Beyond coding, I've dabbled in the art of hacking, adding a touch of intrigue to my diverse skill set. With an insatiable appetite for learning and a knack for navigating both the virtual and physical realms, I'm on a quest to make my mark in the ever-evolving landscape of technology and adventure. </p>
+        <p class="text text-white">Hello, I'm Vasudeva Rao, a 22-year-old with a passion for exploration. I completed my
+            10th class in 2016, and since then, my journey has been marked by a love for traveling and a curiosity for
+            languages. Fluent in four languages, I've also delved into the world of web development, honing my skills in
+            this dynamic field. Beyond coding, I've dabbled in the art of hacking, adding a touch of intrigue to my
+            diverse skill set. With an insatiable appetite for learning and a knack for navigating both the virtual and
+            physical realms, I'm on a quest to make my mark in the ever-evolving landscape of technology and adventure.
+        </p>
         <br><br>
         <!-- Progression bar code start-->
         <h3>Telugu</h3>
@@ -447,13 +469,13 @@
         <h2>Contact Us</h2>
         <!--Email Validation Start-->
         <div class="container">
-            <form id="contactForm" method="post" action="https://script.google.com/macros/s/AKfycbzNwnJAPqPyymY3UMqPVHkIDX3XUAZzMYdZx4m8TxJRSujIXsJZ2VSau2L_j0Kfr3mykw/exec">
+            <form id="contactForm" method="post" onsubmit="submitForm(event)">
                 <label for="email">Email:</label>
                 <input type="email" id="email" name="email" placeholder="Enter Your Email . . . ." required>
                 <span id="emailError" class="error"></span>
 
                 <label for="username">Username:</label>
-                <input type="text" id="username" name="name" placeholder="Enter Your Name . . . ." required>
+                <input type="text" id="username" name="username" placeholder="Enter Your Name . . . ." required>
                 <span id="usernameError" class="error"></span>
 
                 <label for="message">Message:</label>
@@ -461,154 +483,169 @@
                     required></textarea>
                 <span id="messageError" class="error"></span>
 
-                <input type="submit" onclick="validateForm()">
+                <button type="submit">Submit</button>
             </form>
-
-            <div class="social-icons">
-                <a href="https://www.facebook.com/profile.php?id=100012770858006" target="_blank"
-                    class="fa fa-facebook">.Facebook</a>
-                <a href="https://www.linkedin.com/in/vasudeva-rao-b5aa45242/" target="_blank"
-                    class="fa fa-linkedin">.Linkedin</a>
-                <a href="https://www.instagram.com/vasu541/" target="_blank" class="fa fa-instagram ">.Instagram</a>
-            </div>
         </div>
-    </div>
-
-    <!-- Existing HTML content -->
-
-    <!-- Add the following div for blinking stars -->
-    <div class="stars" id="stars-container"></div>
 
 
-     <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const starsContainer = document.getElementById('stars-container');
+        <div class="social-icons">
+            <a href="https://www.facebook.com/profile.php?id=100012770858006" target="_blank" class="fa fa-facebook">
+                Facebook</a>
+            <a href="https://www.linkedin.com/in/vasudeva-rao-b5aa45242/" target="_blank" class="fa fa-linkedin">
+                LinkedIn</a>
+            <a href="https://www.instagram.com/vasu541/" target="_blank" class="fa fa-instagram"> Instagram</a>
+            <a href="https://github.com/VasuDevaRao333" target="_blank" class="fa fa-github"> GitHub</a>
+            <!-- Added GitHub link -->
+        </div>
 
-            for (let i = 1; i <= 50; i++) {
-                const star = document.createElement('div');
-                star.classList.add('star');
-                star.style.top = `${Math.random() * 100}%`;
-                star.style.left = `${Math.random() * 100}%`;
-                starsContainer.appendChild(star);
-            }
-        });
-    </script>
 
-    <script>
-    document.addEventListener('DOMContentLoaded', function () {
-        const starsContainer = document.getElementById('stars-container');
+        <!-- Existing HTML content -->
 
-        // Function to create shooting stars
-        function createShootingStar() {
-            const star = document.createElement('div');
-            star.classList.add('shooting-star');
-            star.style.top = `${Math.random() * 100}vh`;
-            star.style.left = `${Math.random() * 100}vw`;
-            starsContainer.appendChild(star);
-        }
+        <!-- Add the following div for blinking stars -->
+        <div class="stars" id="stars-container"></div>
 
-        // Create shooting stars at regular intervals
-        setInterval(() => {
-            createShootingStar();
-        }, 2000); // Adjust the interval as needed
-    });
-</script>
 
-    <script>
-        function myFunction() {
-            var x = document.getElementById("myTopnav");
-            if (x.className === "topnav") {
-                x.className += " responsive";
-            } else {
-                x.className = "topnav";
-            }
-        }
-        // Progression bar start
-        function updateProgressBar(progressBarId, targetProgress) {
-            const progressBar = document.getElementById(progressBarId);
-            let progress = 0;
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                const starsContainer = document.getElementById('stars-container');
 
-            const intervalId = setInterval(() => {
-                progress += 5;
-                progressBar.style.width = `${progress}%`;
-                progressBar.innerHTML = `${progress}%`;
-
-                if (progress >= targetProgress) {
-                    clearInterval(intervalId);
+                for (let i = 1; i <= 50; i++) {
+                    const star = document.createElement('div');
+                    star.classList.add('star');
+                    star.style.top = `${Math.random() * 100}%`;
+                    star.style.left = `${Math.random() * 100}%`;
+                    starsContainer.appendChild(star);
                 }
-            }, 500);
-        }
+            });
+        </script>
 
-        // Trigger the progress bar updates
-        updateProgressBar('progress-bar1', 95);
-        updateProgressBar('progress-bar2', 90);
-        updateProgressBar('progress-bar3', 75);
-        updateProgressBar('progress-bar4', 70);
-        updateProgressBar('progress-bar5', 60);
-        updateProgressBar('progress-bar6', 85);
-        updateProgressBar('progress-bar7', 80);
-        updateProgressBar('progress-bar8', 90);
-        updateProgressBar('progress-bar9', 80);
-        updateProgressBar('progress-bar10', 60);
-        updateProgressBar('progress-bar11', 90);
-        updateProgressBar('progress-bar12', 95);
-        updateProgressBar('progress-bar13', 90);
-        //Progression bar code ending
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                const starsContainer = document.getElementById('stars-container');
 
-        function showImages() {
-            document.getElementById("imageContainer").style.display = "flex";
-            document.getElementById("additionalDiv").style.display = "block";
-        }
+                // Function to create shooting stars
+                function createShootingStar() {
+                    const star = document.createElement('div');
+                    star.classList.add('shooting-star');
+                    star.style.top = `${Math.random() * 100}vh`;
+                    star.style.left = `${Math.random() * 100}vw`;
+                    starsContainer.appendChild(star);
+                }
 
-        function openModal(imageSrc, imageAlt) {
-            document.getElementById("myModal").style.display = "flex";
-            document.getElementById("modalImage").src = imageSrc;
-            document.getElementById("modalImage").alt = imageAlt;
-            document.getElementById("modalText").innerHTML = imageAlt;
-        }
+                // Create shooting stars at regular intervals
+                setInterval(() => {
+                    createShootingStar();
+                }, 2000); // Adjust the interval as needed
+            });
+        </script>
 
-        function closeModal() {
-            document.getElementById("myModal").style.display = "none";
-        }
-        //Email Validation Start javascript
+        <script>
+            function myFunction() {
+                var x = document.getElementById("myTopnav");
+                if (x.className === "topnav") {
+                    x.className += " responsive";
+                } else {
+                    x.className = "topnav";
+                }
+            }
+            // Progression bar start
+            function updateProgressBar(progressBarId, targetProgress) {
+                const progressBar = document.getElementById(progressBarId);
+                let progress = 0;
 
-        function validateForm() {
-            var email = document.getElementById('email').value;
-            var username = document.getElementById('name').value;
-            var message = document.getElementById('message').value;
+                const intervalId = setInterval(() => {
+                    progress += 5;
+                    progressBar.style.width = `${progress}%`;
+                    progressBar.innerHTML = `${progress}%`;
 
-            var emailError = document.getElementById('emailError');
-            var usernameError = document.getElementById('usernameError');
-            var messageError = document.getElementById('messageError');
-
-            var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-            // Validate email
-            if (!emailRegex.test(email)) {
-                emailError.innerHTML = 'Invalid email address';
-            } else {
-                emailError.innerHTML = '';
+                    if (progress >= targetProgress) {
+                        clearInterval(intervalId);
+                    }
+                }, 500);
             }
 
-            // Validate username
-            if (username.length < 3) {
-                usernameError.innerHTML = 'Username must be at least 3 characters';
-            } else {
-                usernameError.innerHTML = '';
+            // Trigger the progress bar updates
+            updateProgressBar('progress-bar1', 95);
+            updateProgressBar('progress-bar2', 90);
+            updateProgressBar('progress-bar3', 75);
+            updateProgressBar('progress-bar4', 70);
+            updateProgressBar('progress-bar5', 60);
+            updateProgressBar('progress-bar6', 85);
+            updateProgressBar('progress-bar7', 80);
+            updateProgressBar('progress-bar8', 90);
+            updateProgressBar('progress-bar9', 80);
+            updateProgressBar('progress-bar10', 60);
+            updateProgressBar('progress-bar11', 90);
+            updateProgressBar('progress-bar12', 95);
+            updateProgressBar('progress-bar13', 90);
+            //Progression bar code ending
+
+            function showImages() {
+                document.getElementById("imageContainer").style.display = "flex";
+                document.getElementById("additionalDiv").style.display = "block";
             }
 
-            // Validate message
-            if (emailError.innerHTML === '' && usernameError.innerHTML === '' && messageError.innerHTML === '') {
-                alert('Form submitted successfully!');
-                // You can also submit the form to a server here if needed
-                document.getElementById('contactForm').reset(); // Reset the form fields
+            function openModal(imageSrc, imageAlt) {
+                document.getElementById("myModal").style.display = "flex";
+                document.getElementById("modalImage").src = imageSrc;
+                document.getElementById("modalImage").alt = imageAlt;
+                document.getElementById("modalText").innerHTML = imageAlt;
             }
-        }
+
+            function closeModal() {
+                document.getElementById("myModal").style.display = "none";
+            }
+            //Email Validation Start javascript
+            // Handle form submission
+            function submitForm(event) {
+                event.preventDefault(); // Prevent form from submitting normally
+
+                var email = document.getElementById('email').value;
+                var username = document.getElementById('username').value;
+                var message = document.getElementById('message').value;
+
+                // Validate email format
+                var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!emailRegex.test(email)) {
+                    document.getElementById('emailError').innerText = 'Invalid email address';
+                    return;
+                } else {
+                    document.getElementById('emailError').innerText = '';
+                }
+
+                // Validate username length
+                if (username.length < 3) {
+                    document.getElementById('usernameError').innerText = 'Username must be at least 3 characters';
+                    return;
+                } else {
+                    document.getElementById('usernameError').innerText = '';
+                }
+
+                // Prepare data to send to the Google Apps Script endpoint
+                var formData = new FormData();
+                formData.append('Email', email);
+                formData.append('Username', username);
+                formData.append('Message', message);
+
+                // Submit the form data using Fetch API
+                fetch('https://script.google.com/macros/s/AKfycbzbQmv-XAv1DHgtHlOGc9tiMBLwXxSZx6n6-Dk0oSEbHRwOBbavVs7tldW_aKqq0Xc/exec', {
+                    method: 'POST',
+                    body: formData
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        alert('Form submitted successfully!');
+                        document.getElementById('contactForm').reset(); // Reset form fields
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        alert('There was an error with your submission. Please try again.');
+                    });
+            }
 
 
-		
 
-    </script>
+        </script>
 
 </body>
 
