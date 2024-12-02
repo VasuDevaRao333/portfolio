@@ -340,6 +340,76 @@
                 opacity: 0;
             }
         }
+
+
+
+        /* Projects Section Styles */
+        .projects {
+            padding: 50px 0;
+
+            color: white;
+            text-align: center;
+        }
+
+        .projects h2 {
+            font-size: 40px;
+            margin-bottom: 40px;
+        }
+
+        .project-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+        }
+
+        .project-card {
+            width: 30%;
+            margin: 20px;
+            background-color: #222;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease;
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .project-img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+        }
+
+        .project-info {
+            margin-top: 20px;
+        }
+
+        .project-info h3 {
+            font-size: 24px;
+        }
+
+        .project-info p {
+            font-size: 16px;
+            margin-top: 10px;
+        }
+
+        .project-link {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #232523;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .project-link:hover {
+            background-color: #ced6ce;
+            color: #0c0c0c;
+        }
     </style>
 </head>
 
@@ -465,6 +535,68 @@
             <div class="progress-bar" id="progress-bar13">0%</div>
         </div>
     </div>
+    <!-- Projects Section Start -->
+    <div class="projects" id="projects">
+        <h2>My Projects</h2>
+        <div class="project-container">
+            <div class="project-card">
+                <img src="project1.jpg" alt="Project 1" class="project-img">
+                <div class="project-info">
+                    <h3>Project 1</h3>
+                    <p>A brief description of what this project is about, including the technologies used.</p>
+                    <a href="https://github.com/yourusername/project1" target="_blank" class="project-link">View on
+                        GitHub</a>
+                </div>
+            </div>
+            <div class="project-card">
+                <img src="project2.jpg" alt="Project 2" class="project-img">
+                <div class="project-info">
+                    <h3>Project 2</h3>
+                    <p>A brief description of what this project is about, including the technologies used.</p>
+                    <a href="https://github.com/yourusername/project2" target="_blank" class="project-link">View on
+                        GitHub</a>
+                </div>
+            </div>
+            <div class="project-card">
+                <img src="project3.jpg" alt="Project 3" class="project-img">
+                <div class="project-info">
+                    <h3>Project 3</h3>
+                    <p>A brief description of what this project is about, including the technologies used.</p>
+                    <a href="https://github.com/yourusername/project3" target="_blank" class="project-link">View on
+                        GitHub</a>
+                </div>
+            </div>
+            <div class="project-card">
+                <img src="project4.jpg" alt="Project 4" class="project-img">
+                <div class="project-info">
+                    <h3>Project 4</h3>
+                    <p>A brief description of what this project is about, including the technologies used.</p>
+                    <a href="https://github.com/yourusername/project4" target="_blank" class="project-link">View on
+                        GitHub</a>
+                </div>
+            </div>
+            <div class="project-card">
+                <img src="project5.jpg" alt="Project 5" class="project-img">
+                <div class="project-info">
+                    <h3>Project 5</h3>
+                    <p>A brief description of what this project is about, including the technologies used.</p>
+                    <a href="https://github.com/yourusername/project5" target="_blank" class="project-link">View on
+                        GitHub</a>
+                </div>
+            </div>
+            <div class="project-card">
+                <img src="project6.jpg" alt="Project 6" class="project-img">
+                <div class="project-info">
+                    <h3>Project 6</h3>
+                    <p>A brief description of what this project is about, including the technologies used.</p>
+                    <a href="https://github.com/yourusername/project6" target="_blank" class="project-link">View on
+                        GitHub</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Projects Section End -->
+
     <div class="contact" id="contact">
         <h2>Contact Us</h2>
         <!--Email Validation Start-->
@@ -644,6 +776,17 @@
             }
 
 
+            // Example: Opening a modal for project details (optional)
+            function openProjectModal(projectId) {
+                const projectDetails = {
+                    project1: 'Project 1 details here.',
+                    project2: 'Project 2 details here.',
+                    project3: 'Project 3 details here.',
+                    // Add similar details for other projects
+                };
+
+                alert(projectDetails[projectId]);
+            }
 
         </script>
 
