@@ -4,89 +4,417 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>File Download Button</title>
+    <title>Car Parking Challenge</title>
     <style>
-        body,
-        html {
+        body {
             margin: 0;
             padding: 0;
-            height: 100%;
             display: flex;
-            align-items: center;
             justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+            flex-direction: column;
+            overflow: hidden;
             font-family: Arial, sans-serif;
         }
 
-        .container {
-            text-align: center;
+        #gameArea {
+            position: relative;
+            overflow: hidden;
+            animation: fadeIn 2s ease-out;
         }
 
-        .input-field {
-            margin-bottom: 10px;
+        #gameCanvas {
+            background-color: #ccc;
+            border: 3px solid #000;
+            width: 100%;
+            height: 100%;
+            transition: background-color 0.3s ease;
         }
 
-        #downloadBtn {
-            padding: 10px 20px;
-            font-size: 16px;
-            background-color: #f40a0a;
+        #scorePanel {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            color: black;
+            font-size: 18px;
+            z-index: 10;
+            background: rgba(255, 255, 255, 0.7);
+            padding: 10px;
+            border-radius: 8px;
+        }
+
+        #timer {
+            font-size: 18px;
+            color: #ff0000;
+        }
+
+        .controls {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 20px;
+            z-index: 10;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .control-button {
+            width: 50px;
+            height: 50px;
+            background-color: #4CAF50;
             color: white;
+            font-size: 18px;
             border: none;
             border-radius: 5px;
             cursor: pointer;
-            transition: background-color 0.3s;
+            transition: transform 0.2s ease-in-out;
         }
 
-        #downloadBtn:hover {
-            background-color: #140df6;
+        .control-button:hover {
+            background-color: #45a049;
         }
-         h1 {
-            text-align: center;
-            color: blue;
-            font-weight: 700;
-            font-style: italic;
-            padding: 40px;
+
+        .control-button:active {
+            transform: scale(0.95);
+        }
+
+        .speed-controls {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .speed-button {
+            width: 60px;
+            height: 30px;
+            background-color: #09e561;
+            color: white;
+            font-size: 14px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: transform 0.2s ease-in-out;
+        }
+
+        .speed-button:hover {
+            background-color: #0056b3;
+        }
+
+        .speed-button:active {
+            transform: scale(0.95);
+        }
+
+        .message {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 20px;
+            font-size: 24px;
+            display: none;
+            z-index: 100;
+            border-radius: 10px;
+            animation: fadeIn 1s ease-out;
+        }
+
+        @media (max-width: 600px) {
+            .control-button {
+                width: 40px;
+                height: 40px;
+                font-size: 14px;
+            }
+
+            .speed-button {
+                width: 50px;
+                height: 25px;
+                font-size: 12px;
+            }
+
+            #scorePanel {
+                font-size: 14px;
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes backgroundChange {
+            0% {
+                background-color: #f0f0f0;
+            }
+
+            100% {
+                background-color: #e0e0e0;
+            }
         }
     </style>
 </head>
 
 <body>
-    
-    <div class="container">
-        <h1>VasuDev Files</h1>
-        <div class="input-field">
-            <input type="text" id="fileUrl" placeholder="Enter file URL" style="width: 300px; padding: 5px;">
-        </div>
-        <div class="input-field">
-            <input type="text" id="fileName" placeholder="Enter file name" style="width: 300px; padding: 5px;">
-        </div>
-        <button id="downloadBtn">Download File</button>
-    </div>
-    <script>
-        document.getElementById('downloadBtn').addEventListener('click', function () {
-            // Get the file URL and file name from input fields
-            var fileUrl = document.getElementById('fileUrl').value;
-            var fileName = document.getElementById('fileName').value;
+    <div id="gameArea">
+        <canvas id="gameCanvas"></canvas>
+        <div id="scorePanel">
 
-            // Validate the input fields
-            if (fileUrl.trim() === '' || fileName.trim() === '') {
-                alert('దయచేసి File URL మరియు File పేరు రెండింటినీ నమోదు చేయరా ఎర్రి పుక. :-) ');
-                return;
+            <p id="status">Navigate the roads!</p>
+            <p id="timer">Time Left: <span id="timerValue">30</span> s</p>
+        </div>
+    </div>
+
+    <div class="controls">
+        <button class="control-button" id="upButton">↑</button>
+        <button class="control-button" id="leftButton">←</button>
+        <button class="control-button" id="downButton">↓</button>
+        <button class="control-button" id="rightButton">→</button>
+    </div>
+
+    <div class="speed-controls">
+        <button class="speed-button" id="decreaseSpeed">Slow Down</button>
+        <button class="speed-button" id="increaseSpeed">Speed Up</button>
+    </div>
+
+    <div class="message" id="gameMessage"></div>
+
+    <div id="carSelection" style="display: none;">
+        <button id="car1Button"> <img src="car1.png" style="width:60px"></button>
+        <button id="car2Button"> <img src="car2.png" style="width:60px"></button>
+        <button id="car3Button"> <img src="car3.png" style="width:60px"></button>
+        <button id="startGameButton">Start Game</button>
+    </div>
+
+    <script>
+        // Game setup variables
+        const canvas = document.getElementById('gameCanvas');
+        const ctx = canvas.getContext('2d');
+        const statusDisplay = document.getElementById('status');
+        const timerValue = document.getElementById('timerValue');
+        const gameMessage = document.getElementById('gameMessage');
+        const carSelection = document.getElementById('carSelection');
+
+        // Car and game settings
+        const carWidth = 60;
+        const carHeight = 30;
+        let carX = 100;
+        let carY = 100;
+        let carSpeed = 5;
+        let selectedCar = 1;
+        const car1Image = new Image();
+        const car2Image = new Image();
+        const car3Image = new Image();
+        car1Image.src = 'car1.png';
+        car2Image.src = 'car2.png';
+        car3Image.src = 'car3.png';
+        let carImage = car1Image;
+
+        let leftArrow = false;
+        let rightArrow = false;
+        let upArrow = false;
+        let downArrow = false;
+
+        let leftButton = false;
+        let rightButton = false;
+        let upButton = false;
+        let downButton = false;
+
+        let carAngle = 0;
+        let gameTimer = 30;
+        let gameInterval;
+
+        let targetX = 400;
+        let targetY = 250;
+        let targetWidth = 80;
+        let targetHeight = 40;
+
+        // Adjust canvas size dynamically based on window size
+        function resizeCanvas() {
+            canvas.width = window.innerWidth * 0.8;
+            canvas.height = window.innerHeight * 0.6;
+        }
+
+        // Initialize the game loop
+        function gameLoop() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            // Update game elements
+            updateBackground();
+            drawRoads();
+            drawCar();
+            drawTarget();
+
+            moveCar();
+
+            statusDisplay.innerHTML = `Use arrow keys or buttons to drive!`;
+            timerValue.textContent = gameTimer;
+
+            if (gameTimer <= 0) {
+                endGame("Time's up! You Lost.");
             }
 
-            // Create a temporary link element
-            var a = document.createElement('a');
-            a.href = fileUrl;
-            a.download = fileName;
+            checkTargetReached();
 
-            // Append the link to the body
-            document.body.appendChild(a);
+            requestAnimationFrame(gameLoop);
+        }
 
-            // Trigger the download
-            a.click();
+        // Draw the car (using the selected image)
+        function drawCar() {
+            ctx.save();
+            ctx.translate(carX + carWidth / 2, carY + carHeight / 2);
+            ctx.rotate(carAngle);
+            ctx.drawImage(carImage, -carWidth / 2, -carHeight / 2, carWidth, carHeight);
+            ctx.restore();
+        }
 
-            // Remove the link from the document
-            document.body.removeChild(a);
+        // Draw the target point
+        function drawTarget() {
+            ctx.fillStyle = '#FF5733';
+            ctx.fillRect(targetX, targetY, targetWidth, targetHeight);
+        }
+
+        // Draw the roads
+        function drawRoads() {
+            ctx.fillStyle = 'white';
+            for (let i = 100; i < canvas.width; i += 100) {
+                ctx.fillRect(i, 0, 40, canvas.height);
+            }
+            for (let i = 100; i < canvas.height; i += 100) {
+                ctx.fillRect(0, i, canvas.width, 40);
+            }
+        }
+
+        // Move the car based on the arrow keys and buttons
+        function moveCar() {
+            if (leftArrow || leftButton) carAngle -= 0.1;
+            if (rightArrow || rightButton) carAngle += 0.1;
+
+            let speedX = 0;
+            let speedY = 0;
+
+            if (upArrow || upButton) {
+                speedX = carSpeed * Math.cos(carAngle);
+                speedY = carSpeed * Math.sin(carAngle);
+            }
+            if (downArrow || downButton) {
+                speedX = -carSpeed * Math.cos(carAngle);
+                speedY = -carSpeed * Math.sin(carAngle);
+            }
+
+            carX += speedX;
+            carY += speedY;
+        }
+
+        // Check if car has reached the target
+        function checkTargetReached() {
+            if (carX < targetX + targetWidth && carX + carWidth > targetX &&
+                carY < targetY + targetHeight && carY + carHeight > targetY) {
+                endGame("You reached the target! You Win!");
+            }
+        }
+
+        // Update background
+        function updateBackground() {
+            ctx.fillStyle = "lightgreen";
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+        }
+
+        // Start game timer
+        function startTimer() {
+            gameInterval = setInterval(() => {
+                if (gameTimer > 0) {
+                    gameTimer--;
+                }
+            }, 1000);
+        }
+
+        // End game and show message
+        function endGame(message) {
+            clearInterval(gameInterval);
+            gameMessage.textContent = message;
+            gameMessage.style.display = 'block';
+        }
+
+        // Event listeners for car movement (keyboard)
+        document.addEventListener('keydown', (event) => {
+            if (event.key === 'ArrowLeft') leftArrow = true;
+            if (event.key === 'ArrowRight') rightArrow = true;
+            if (event.key === 'ArrowUp') upArrow = true;
+            if (event.key === 'ArrowDown') downArrow = true;
         });
+
+        document.addEventListener('keyup', (event) => {
+            if (event.key === 'ArrowLeft') leftArrow = false;
+            if (event.key === 'ArrowRight') rightArrow = false;
+            if (event.key === 'ArrowUp') upArrow = false;
+            if (event.key === 'ArrowDown') downArrow = false;
+        });
+
+        // Event listeners for car movement (buttons)
+        document.getElementById('upButton').addEventListener('click', () => upButton = true);
+        document.getElementById('downButton').addEventListener('click', () => downButton = true);
+        document.getElementById('leftButton').addEventListener('click', () => leftButton = true);
+        document.getElementById('rightButton').addEventListener('click', () => rightButton = true);
+
+        // Event listeners for car speed control
+        document.getElementById('increaseSpeed').addEventListener('click', () => {
+            if (carSpeed < 10) carSpeed += 1;
+        });
+        document.getElementById('decreaseSpeed').addEventListener('click', () => {
+            if (carSpeed > 1) carSpeed -= 1;
+        });
+
+        // Start game button
+        document.getElementById('car1Button').addEventListener('click', () => {
+            selectedCar = 1;
+            carImage = car1Image;
+            carSelection.style.display = 'none';
+            gameLoop();
+            startTimer();
+        });
+
+        document.getElementById('car2Button').addEventListener('click', () => {
+            selectedCar = 2;
+            carImage = car2Image;
+            carSelection.style.display = 'none';
+            gameLoop();
+            startTimer();
+        });
+
+        document.getElementById('car3Button').addEventListener('click', () => {
+            selectedCar = 3;
+            carImage = car3Image;
+            carSelection.style.display = 'none';
+            gameLoop();
+            startTimer();
+        });
+
+        // Show car selection screen
+        carSelection.style.display = 'block';
+
+        // Resize canvas on window resize
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
     </script>
 </body>
 
